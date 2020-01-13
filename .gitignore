@@ -1,0 +1,2 @@
+#ignoring all object files from make
+*.o
