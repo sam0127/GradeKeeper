@@ -1,2 +1,4 @@
 #ignoring all object files from make
 *.o
+#ignoring executable
+gradekeeper/

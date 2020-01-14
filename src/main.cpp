@@ -6,7 +6,25 @@
 #include <vector>
 
 using namespace std;
-int main(){
+void helpDisplay()
+{
+  cout << "Commands:" << endl;
+  cout << "w - save changes" << endl;
+  cout << "r - recover changes" << endl;
+  cout << "co - display courses" << endl;
+  cout << "bd - display breakdown of course, this sets course focus" << endl;
+  cout << "aco - add course, this sets course focus" << endl;
+  cout << "rco - remove course" << endl;
+  cout << "aca - add category to course" << endl;
+  cout << "rca - remove category from course" << endl;
+  cout << "ag - add grade to category of course" << endl;
+  cout << "rg - remove grade from category in course" << endl;
+  cout << "q - quit without saving" << endl;
+  cout << "help - display this message" << endl;
+}
+
+int main()
+{
   cout << "Loading courses..." << endl;
   //DataIO IOobject;
   //CourseManager cm(IOobject.readCourses());
@@ -15,7 +33,7 @@ int main(){
 
 
   //TESTING
-
+  /*
   Category * tests313 = new Category("Tests", .5);
   tests313->addGrade(90);
   tests313->addGrade(84);
@@ -62,15 +80,210 @@ int main(){
   courses.push_back(cs315);
 
   CourseManager cm(courses);
-
+  */
+  /*
   cout << ">>>>>>>>>>COURSES<<<<<<<<<<" << endl;
   cm.print();
   cout << ">>>class breakdown<<<" << endl;
   vector<Course*> a = cm.getCourses();
   for(int i = 0; i < a.size(); i++){
     a.at(i)->print();
+  }*/
+
+  CourseManager cm;
+  helpDisplay();
+
+  //runtime loop
+  Course* courseFocus = nullptr;
+  while(true)
+  {
+    string command;
+    cout << "> ";
+    cin >> command;
+    cout << command << endl;
+
+    if(command == "w"){
+      //write
+      cout << "write" << endl;
+    }
+    else if(command == "r"){
+      //update data to file
+      cout << "recover" << endl;
+    }
+    else if(command == "co"){
+      cout << "disp courses" << endl;
+      cm.print();
+    }
+    else if(command == "bd"){
+      cout << "disp course breakdown" << endl;
+      cout << "Display which course? ";
+      string name;
+      cin >> name;
+
+      Course* course = cm.findCourse(name);
+      if(course){
+        courseFocus = course;
+        course->print();
+        cout << courseFocus->getName() << endl;
+      }else{
+        cout << "Course " << name << " not found." << endl;
+      }
+    }
+    else if(command == "aco"){
+      cout << "add course" << endl;
+      cout << "Enter course name: ";
+      string name;
+      cin >> name;
+
+      Course* course = cm.findCourse(name);
+      if(course){
+        cout << "Course " << name << " already exists." << endl;
+      }else{
+        Course* newCourse = new Course(name);
+        courseFocus = newCourse;
+        cm.addCourse(newCourse);
+      }
+    }
+    else if(command == "rco"){
+      cout << "remove course" << endl;
+      cout << "Remove which course? ";
+      string name;
+      cin >> name;
+
+      Course* course = cm.findCourse(name);
+      if(course){
+        cm.removeCourse(course);
+      }else{
+        cout << "Course " << name << " not found" << endl;
+      }
+    }
+    else if(command == "aca"){
+      cout << "add category" << endl;
+      if(!courseFocus){
+        cout << "What course does the category belong to? ";
+        string name;
+        cin >> name;
+
+        Course* course = cm.findCourse(name);
+        if(course){
+          courseFocus = course;
+        }else{
+          cout << "Course " << name << " not found" << endl;
+          continue;
+        }
+      }
+      cout << "Enter category name: ";
+      string name;
+      cin >> name;
+      Category* cat = courseFocus->findCategory(name);
+      if(cat){
+        cout << "Category " << name << " already exists." << endl;
+      }else{
+        cout << "Enter category weight (decimal): ";
+        string weight_string;
+        cin >> weight_string;
+        double weight = atof(weight_string.c_str());
+        Category* newCat = new Category(name, weight);
+        courseFocus->addCategory(newCat);
+      }
+    }
+    else if(command == "rca"){
+      cout << "remove category" << endl;
+      if(!courseFocus){
+        cout << "What course does the category belong to? ";
+        string name;
+        cin >> name;
+
+        Course* course = cm.findCourse(name);
+        if(course){
+          courseFocus = course;
+        }else{
+          cout << "Course " << name << " not found" << endl;
+          continue;
+        }
+      }
+      cout << "Enter category name: ";
+      string name;
+      cin >> name;
+      Category* cat = courseFocus->findCategory(name);
+      if(cat){
+        courseFocus->removeCategory(cat);
+        cout << "Category " << name << " removed." << endl;
+      }else{
+        cout << "Category " << name << " not found." << endl;
+      }
+    }
+    else if(command == "ag"){
+      cout << "add grade" << endl;
+      if(!courseFocus){
+        cout << "What course does the grade belong to? ";
+        string name;
+        cin >> name;
+
+        Course* course = cm.findCourse(name);
+        if(course){
+          courseFocus = course;
+        }else{
+          cout << "Course " << name << " not found" << endl;
+          continue;
+        }
+      }
+      cout << "What category does the grade belong to? ";
+      string name;
+      cin >> name;
+      Category* cat = courseFocus->findCategory(name);
+      if(cat){
+        cout << "Enter grade: ";
+        string grade_string;
+        cin >> grade_string;
+        int grade = atoi(grade_string.c_str());
+        cat->addGrade(grade);
+      }else{
+        cout << "Category " << name << " not found." << endl;
+      }
+    }
+    else if(command == "rg"){
+      cout << "remove grade" << endl;
+      if(!courseFocus){
+        cout << "What course does the grade belong to? ";
+        string name;
+        cin >> name;
+
+        Course* course = cm.findCourse(name);
+        if(course){
+          courseFocus = course;
+        }else{
+          cout << "Course " << name << " not found" << endl;
+          continue;
+        }
+      }
+      cout << "What category does the grade belong to? ";
+      string name;
+      cin >> name;
+      Category* cat = courseFocus->findCategory(name);
+      if(cat){
+        cout << "Enter grade index: ";
+        string index_string;
+        cin >> index_string;
+        int index = atoi(index_string.c_str());
+        cat->removeGrade(index);
+      }else{
+        cout << "Category " << name << " not found." << endl;
+      }
+    }
+    else if(command == "q"){
+      cout << "quit" << endl;
+      break;
+    }
+    else if(command == "help"){
+      cout << "help" << endl;
+      helpDisplay();
+    }
+    else{
+      cout << "Unknown command, use help for a list of commands" << endl;
+    }
   }
 
-
-
 }
+
+
