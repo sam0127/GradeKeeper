@@ -1,4 +1,4 @@
-gradekeeper: Category.o Course.o CourseManager.o
+gradekeeper: main.cpp Category.o Course.o CourseManager.o
 	g++ -w -std=c++11 -o gradekeeper main.cpp Category.o Course.o CourseManager.o
 
 Category.o: Category.h Category.cpp
