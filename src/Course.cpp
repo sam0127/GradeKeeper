@@ -2,6 +2,9 @@
 
 using namespace std;
 
+Course::Course(string name) : name(name), categories(0)
+{}
+
 Course::Course(string name, vector<Category*> categories) : name(name), categories(categories)
 {}
 
@@ -52,6 +55,15 @@ void Course::removeCategory(string name){
   if(!removed){
     cout << "Category " << name << " not found." << endl;
   }
+}
+
+Category* Course::findCategory(string name){
+  for(int i = 0; i < categories.size(); i++){
+    if(name == categories.at(i)->getName()){
+      return categories.at(i);
+    }
+  }
+  return nullptr;
 }
 
 string Course::getName(){

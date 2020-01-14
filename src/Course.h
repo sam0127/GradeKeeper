@@ -8,6 +8,7 @@
 class Course
 {
   public:
+    Course(std::string name);
     Course(std::string name, std::vector<Category*> categories);
     ~Course();
 
@@ -16,6 +17,7 @@ class Course
     void addCategory(std::string name, double weight);
     void removeCategory(Category* category);
     void removeCategory(std::string name);
+    Category* findCategory(std::string name);
     std::string getName();
     std::vector<Category*> getCategories();
     void print();

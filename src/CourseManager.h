@@ -6,12 +6,14 @@
 
 class CourseManager{
   public:
+    CourseManager();
     CourseManager(std::vector<Course*> courses);
     ~CourseManager();
 
     void addCourse(Course* course);
     void removeCourse(Course* course);
     std::vector<Course*> getCourses();
+    Course* findCourse(std::string name);
     int size();
     void print();
   private:

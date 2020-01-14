@@ -2,6 +2,9 @@
 
 using namespace std;
 
+CourseManager::CourseManager() : courses(0)
+{}
+
 CourseManager::CourseManager(vector<Course*> courses) : courses(courses)
 {}
 
@@ -32,6 +35,16 @@ void CourseManager::removeCourse(Course* course){
 vector<Course*> CourseManager::getCourses(){
   return courses;
 }
+
+Course* CourseManager::findCourse(string name){
+  for(int i = 0; i < size(); i++){
+    if(name == courses.at(i)->getName()){
+      return courses.at(i);
+    }
+  }
+  return nullptr;
+}
+
 int CourseManager::size(){
   return courses.size();
 }
