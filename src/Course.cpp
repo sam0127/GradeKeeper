@@ -34,12 +34,8 @@ void Course::removeCategory(Category* category){
   for(int i = 0; i < categories.size(); i++){
     if(category->getName() == categories.at(i)->getName()){
       categories.erase(categories.begin()+i);
-      cout << "Category " << name << " removed." << endl;
       removed = true;
     }
-  }
-  if(!removed){
-    cout << "Category " << name << " not found." << endl;
   }
 }
 
@@ -77,6 +73,7 @@ vector<Category*> Course::getCategories(){
 void Course::print(){
   cout << "====================" << endl;
   cout << name << " grade breakdown:" << endl;
+  cout << "Course average: " << calculateWeightedAverage() << endl;
   for(int i = 0; i < categories.size(); i++){
     categories.at(i)->print();
   }

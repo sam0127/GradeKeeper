@@ -1,4 +1,6 @@
 #ignoring all object files from make
 *.o
+#ignoring .swp files
+src/*.swp
 #ignoring executable
-gradekeeper/
+src/gradekeeper

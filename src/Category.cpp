@@ -32,7 +32,7 @@ void Category::print(){
   cout << "--------------------" << endl;
   cout << name << " - " << weight * 100 << "%" << endl;
   for(int i = 0; i < grades.size(); i++){
-    cout << grades.at(i) << endl;
+    cout << i << ". " << grades.at(i) << endl;
   }
   cout << "Average: " << calculateAverage() << endl;
 }
