@@ -28,12 +28,12 @@ void helpDisplay()
 int main()
 {
   cout << "Loading courses..." << endl;
-  //DataIO IOobject;
-  //CourseManager cm(IOobject.readCourses());
-
+  DataIO IOobject;
+  CourseManager cm(IOobject.readCourses());
+  //IOobject.test("yeeee");
   //cout << cm.size() << " courses loaded." << endl;
 
-  CourseManager cm;
+  //CourseManager cm;
   helpDisplay();
 
   //runtime loop
@@ -47,11 +47,11 @@ int main()
 
     if(command == "w"){
       //write
-      cout << "write" << endl;
+      IOobject.writeCourses(cm.getCourses());
     }
     else if(command == "r"){
       //update data to file
-      cout << "recover" << endl;
+      //cm = CourseManager(IOobject.readCourses());
     }
     else if(command == "fco"){
       cout << "Focus on which course? ";
@@ -85,6 +85,7 @@ int main()
       Category* cat = courseFocus->findCategory(name);
       if(cat){
         catFocus = cat;
+        cout << "Category focus set to " << name << "." << endl;
       }else{
         cout << "Category " << name << " not found in " << courseFocus->getName() << "." << endl;
       }

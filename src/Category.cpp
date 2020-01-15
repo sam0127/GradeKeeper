@@ -28,6 +28,10 @@ string Category::getName(){
   return name;
 }
 
+vector<double> Category::getGrades(){
+  return grades;
+}
+
 void Category::print(){
   cout << "--------------------" << endl;
   cout << name << " - " << weight * 100 << "%" << endl;

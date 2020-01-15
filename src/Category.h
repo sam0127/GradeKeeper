@@ -13,6 +13,7 @@ class Category{
     void removeGrade(int index);
     double getWeight();
     std::string getName();
+    std::vector<double> getGrades();
     void print();
   private:
     std::string name;

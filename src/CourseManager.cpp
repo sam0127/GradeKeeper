@@ -23,12 +23,8 @@ void CourseManager::removeCourse(Course* course){
   for(int i = 0; i < courses.size(); i++){
     if(course->getName() == courses.at(i)->getName()){
       courses.erase(courses.begin()+i);
-      cout << "Course " << course->getName() << " removed." << endl;
       removed = true;
     }
-  }
-  if(!removed){
-    cout << "Course " << course->getName() << " not found." << endl;
   }
 }
 
