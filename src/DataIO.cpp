@@ -18,7 +18,7 @@ vector<Course*> DataIO::readCourses(){
     size_t lastindex = filename.find_last_of(".");
     string rawname = filename.substr(0, lastindex);
     Course* newCourse = new Course(rawname);
-    string path = "/Users/samsmith/Desktop/Projects/GradeKeeper/data/"+filename;
+    string path = "../data/"+filename;
     ifstream ifs(path);
     string line;
     if(ifs.is_open()){
@@ -40,17 +40,14 @@ vector<Course*> DataIO::readCourses(){
 void DataIO::writeCourses(vector<Course*> courses){
   for(int i = 0; i < courses.size(); i++){
     string filename = courses.at(i)->getName() + ".csv";
-    string path = "/Users/samsmith/Desktop/Projects/GradeKeeper/data/" + filename;
+    string path = "../data/" + filename;
     ofstream ofs(path);
-    cout << filename << endl;
     if(ofs.is_open()){
       vector<Category*> cats = courses.at(i)->getCategories();
       for(int j = 0; j < cats.size(); j++){
-        cout << cats.at(j)->getName() << endl;
         ofs << cats.at(j)->getName() << ",";
         ofs << cats.at(j)->getWeight();
         for(int k = 0; k < cats.at(j)->getGrades().size(); k++){
-          cout << cats.at(j)->getGrades().at(k) << endl;
           ofs << "," << cats.at(j)->getGrades().at(k);
         }
         ofs << "\n";
@@ -64,7 +61,7 @@ vector<string> DataIO::getFiles(){
   DIR* dir;
   dirent* pdir;
   vector<string> files;
-  string path = "/Users/samsmith/Desktop/Projects/GradeKeeper/data/";
+  string path = "../data/";
   dir = opendir(path.c_str());
   while(pdir = readdir(dir)){
     files.push_back(pdir->d_name);
