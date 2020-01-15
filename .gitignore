@@ -4,3 +4,5 @@
 src/*.swp
 #ignoring executable
 src/gradekeeper
+#ignoring grade files
+data/*.csv
